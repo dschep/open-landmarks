@@ -20,11 +20,9 @@ jobs:
           npm ci
           npm run build:geojson
 
-          rm -rf node_modules .gitignore
-
-          tree
+          mv cp -r index.html landmarks.geojson wikidata_icons public/.
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: .
+          folder: public
