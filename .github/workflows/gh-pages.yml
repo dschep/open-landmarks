@@ -23,6 +23,8 @@ jobs:
           npm run build:geojson
           npm run build:markers
 
+          rm -rf node_modules
+
           tree
 
       - name: Deploy 🚀
