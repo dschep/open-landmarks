@@ -6,7 +6,8 @@
   "scripts": {
     "start": "http-server -c-1 --cors",
     "build:geojson": "node build.js",
-    "build:markers": "bash -x markers.sh"
+    "build:markers": "bash -x markers.sh",
+    "build:public": "mkdir -p public && cp -r index.html landmarks.geojson wikidata_icons public/."
   },
   "author": "",
   "license": "CC0-1.0",

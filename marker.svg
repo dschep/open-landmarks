@@ -9,7 +9,7 @@
       <circle cx="150" cy="150" r="100" clip-path="url(#cut-off-bottom)" />
     </clipPath>
   </defs>
-  <filter id="dropShadow">
+  <filter id="dropShadow" width="150%" height="150%" x="-25%" y="-25%">
     <feGaussianBlur in="SourceAlpha" stdDeviation="14" />
     <feOffset dx="0" dy="9" />
     <feMerge>

@@ -2,18 +2,13 @@
 
 set -e
 
-rm -rf wikidata_icons
-mkdir wikidata_icons
+mkdir -p wikidata_icons
 
 for wikidata_id in $(jq '.[].wikidata' landmarks.json  -r); do
-    echo $wikidata_id
+    ls wikidata_icons/$wikidata_id.png && continue
     curl -L -o image "https://hub.toolforge.org/$wikidata_id?p=image&w=800"
-    file image
-    convert image image.jpg || continue
-    inkscape --export-type=png marker.svg
+    convert image image.jpg
+    rsvg-convert -o marker.png marker.svg
     mv marker.png wikidata_icons/$wikidata_id.png
-    echo
-    echo
-    echo
-    sleep 5
+    sleep 1 # avoid ratelimits :/
 done

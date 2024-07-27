@@ -17,11 +17,14 @@ jobs:
         run: |
           set -e
 
-          npm ci
-          npm run build:geojson
+          sudo apt update
+          sudo apt install librsvg2-bin imagemagick
 
-          mkdir public
-          cp -r index.html landmarks.geojson wikidata_icons public/.
+          npm ci
+
+          npm run build:geojson
+          npm run build:markers
+          npm run build:public
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
