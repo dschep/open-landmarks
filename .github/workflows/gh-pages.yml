@@ -21,7 +21,6 @@ jobs:
           sudo apt-get install -y inkscape imagemagick tree
           npm ci
           npm run build:geojson
-          npm run build:markers
 
           rm -rf node_modules .gitignore
 
