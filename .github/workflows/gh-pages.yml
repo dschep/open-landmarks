@@ -20,6 +20,7 @@ jobs:
           npm ci
           npm run build:geojson
 
+          mkdir public
           cp -r index.html landmarks.geojson wikidata_icons public/.
 
       - name: Deploy 🚀
