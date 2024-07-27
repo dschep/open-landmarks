@@ -19,6 +19,6 @@
   </filter>
 
   <circle cx="150" cy="150" r="100" stroke="white" stroke-width="14" fill="none" filter="url(#dropShadow)" />
-  <image href="image.jpg" x="50" y="50" height="200" width="200" clip-path="url(#circle)" preserveAspectRatio="xMidYMid slice" />
+  <image href="./image.jpg" x="50" y="50" height="200" width="200" clip-path="url(#circle)" preserveAspectRatio="xMidYMid slice" />
 </svg>
 
