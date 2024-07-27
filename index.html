@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>OpenLandmarks</title>
+    <style>
+      html,
+      body,
+      #map,
+      iframe {
+        display: flex;
+        border: none;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe></iframe>
+    <script>
+      let geojson = "https://maprva.github.io/open-landmarks/landmarks.geojson";
+      if (window.location.host.startsWith("localhost:")) {
+        geojson = `${window.location.origin}/landmarks.geojson`;
+      } else {
+        geojson = `${window.location.origin}/open-landmarks/landmarks.geojson`;
+      }
+      const query = `
+---
+type: geojson
+options:
+  zoom: 12
+  center: [-77.45262, 37.55813]
+style:
+  extends: https://styles.trailsta.sh/osm-bright.json
+  layers:
+    - type: symbol
+      icon-image:
+        - concat
+        - /icons/
+        - [get, maki_temaki]
+        - .png
+      icon-color: '#444'
+      text-color: '#333'
+      icon-halo-color: white
+      text-halo-color: white
+      icon-halo-width: 1.2
+      text-halo-width: 1.2
+      text-field:
+         - case
+         - - all
+           - [has, 'name:en']
+           - ['!=', [get, name], [get, 'name:en']]
+         - - format
+           - [get, 'name:en']
+           - {text-font: [literal, [Noto Sans Bold]]}
+           - "\\n"
+           - {}
+           - [get, name]
+           - {text-font: [literal, [Noto Sans Regular]]}
+         - - format
+           - [get, name]
+           - {text-font: [literal, [Noto Sans Bold]]}
+      text-anchor: top
+      text-radial-offset: 1.25
+      text-size: 14
+popupTemplate: >
+  <img src="https://hub.toolforge.org/{{ tags.wikidata }}?p=image&w=200&h=150">
+  <hr>
+  {%- for tag in tags %}
+    {%- if tag[0] contains "website" %}
+      <code>{{ tag[0] }} = <a href="{{ tag[1] }}" target="_blank">{{ tag[1] }}</a></code>
+    {%- elsif tag[0] contains "wikidata" %}
+      <code>{{ tag[0] }} = <a href="https://wikidata.org/wiki/{{ tag[1] }}" target="_blank">{{ tag[1] }}</a></code>
+    {%- elsif tag[0] contains "wikipedia" %}
+      {% assign lang = tag[1] | split: ":" | first %}
+      <code>{{ tag[0] }} = <a href="https://{{ lang }}.wikipedia.org/wiki/{{ tag[1] | replace_first: lang, "" | replace_first: ":", "" }}" target="_blank">{{ tag[1] }}</a></code>
+    {%- else %}
+      <code>{{ tag[0] }} = {{ tag[1] }}</code>
+    {%- endif %}
+    <br>
+  {%- endfor %}
+---
+${geojson}
+`;
+      document.querySelector("iframe").src =
+        `https://overpass-ultra.us/#map&query=${encodeURIComponent(query.trim())}`;
+    </script>
+  </body>
+</html>
