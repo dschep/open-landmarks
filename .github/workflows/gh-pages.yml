@@ -23,7 +23,7 @@ jobs:
           npm run build:geojson
           npm run build:markers
 
-          rm -rf node_modules
+          rm -rf node_modules .gitignore
 
           tree
 
