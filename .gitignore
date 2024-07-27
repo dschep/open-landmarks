@@ -1,2 +1,6 @@
 node_modules/
 /landmarks.geojson
+image
+image.jpg
+marker.png
+wikidata_icons/

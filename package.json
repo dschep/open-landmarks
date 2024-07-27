@@ -5,7 +5,8 @@
   "main": "build.js",
   "scripts": {
     "start": "http-server -c-1 --cors",
-    "build:geojson": "node build.js"
+    "build:geojson": "node build.js",
+    "build:markers": "bash markers.sh"
   },
   "author": "",
   "license": "CC0-1.0",
